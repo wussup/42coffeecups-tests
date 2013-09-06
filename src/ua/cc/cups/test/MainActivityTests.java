@@ -18,7 +18,7 @@ import android.widget.TextView;
  * @author Taras
  *
  */
-public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActivity> {
 
 	private MainActivity mActivity;
 	private TextView mBio;
@@ -32,7 +32,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 	 * @param name
 	 */
 	@SuppressLint("NewApi")
-	public MainActivityTest(String name) {
+	public MainActivityTests(String name) {
 		super(MainActivity.class);
 		setName(name);
 	}
