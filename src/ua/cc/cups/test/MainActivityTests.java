@@ -26,7 +26,7 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
 	private TextView mFullName;
 	private ListView mListView;
 	private ImageView mImageView;
-	
+	private static final String DATABASE_NAME = "infoDB.db";
 	
 	/**
 	 * @param name
@@ -98,4 +98,11 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
 		assertTrue(!"".equals(mDateOfBirth.getText().toString()));
 	}
 	
+	@SmallTest
+	public void testAddDataToDatabase()
+	{
+		mActivity.deleteDatabase(DATABASE_NAME);
+		
+		mActivity = getActivity();
+	}
 }

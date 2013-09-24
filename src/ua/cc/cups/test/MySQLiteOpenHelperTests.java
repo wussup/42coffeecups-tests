@@ -14,6 +14,7 @@ import android.test.AndroidTestCase;
 public class MySQLiteOpenHelperTests extends AndroidTestCase {
 
 	private MySQLiteOpenHelper db;
+	private static final String TABLE_PRODUCTS = "user_info";
 
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
@@ -54,5 +55,25 @@ public class MySQLiteOpenHelperTests extends AndroidTestCase {
         assertEquals(data.getName(), fetchedData.getName());
         assertEquals(data.getSurname(), fetchedData.getSurname());
 	}
+	
+	public void testFindDataWithoutAddData()
+	{
+		db.getWritableDatabase().execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+		
+		Data fetchedData = db.findData();
+		
+		String CREATE_PRODUCTS_TABLE = "CREATE TABLE " +
+	             TABLE_PRODUCTS + "("
+	             + MySQLiteOpenHelper.COLUMN_ID + " INTEGER PRIMARY KEY," + MySQLiteOpenHelper.COLUMN_NAME 
+	             + " TEXT," + MySQLiteOpenHelper.COLUMN_SURNAME + " TEXT," + MySQLiteOpenHelper.COLUMN_BIO + " TEXT," + MySQLiteOpenHelper.COLUMN_DATEOFBIRTH + " TEXT" + ")";
+		db.getWritableDatabase().execSQL(CREATE_PRODUCTS_TABLE);
+		
+        assertNull(fetchedData);
+	}
 
+	public void testOnUpgrade()
+	{
+		db.onUpgrade(db.getWritableDatabase(), 1, 2);
+		assertEquals(2, db.getWritableDatabase().getVersion());
+	}
 }
